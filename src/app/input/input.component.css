@@ -1,0 +1,14 @@
+input {
+	width: 50%;
+	margin: 0 auto;
+}
+
+checkbox {
+	color: accent;
+	float: left;
+}
+
+div {
+	width: 25%;
+	margin: 0 auto;
+}

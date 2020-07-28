@@ -1,0 +1,46 @@
+<h2>User</h2>
+<div>
+	<button (click)="uploadPhotoId()">Upload ID</button>
+	<button (click)="changePassword()">Change Password</button>
+	<div>
+		<form>
+			<input formControlName="ccNumber">
+			<input formControlName="ccExpiry">
+			<input formControlName="cvv">
+			<input formControlName="cardName">
+		</form>
+	</div>
+</div>
+<h2>Network Info</h2>
+<form>
+	<mat-checkbox formControlName="enableDhcp" [(ngModel)]="dhcpCheck" style="margin-left: 10px;">Enable DHCP</mat-checkbox><br>
+	<div formGroupName="ipAddress">
+		<label style="display: inline-block; width: 75px; margin-left: 0px;">IP Address</label>
+		<input [readonly]="dhcpCheck" formControlName="ipAddress1" type="number" placeholder="10" value="10" min="0" max="255" class="input-width">-
+		<input [readonly]="dhcpCheck" formControlName="ipAddress2" type="number" placeholder="0" value="0" min="0" max="255" class="input-width">-
+		<input [readonly]="dhcpCheck" formControlName="ipAddress3" type="number" placeholder="0" value="0" min="0" max="255" class="input-width">-
+		<input [readonly]="dhcpCheck" formControlName="ipAddress4" type="number" placeholder="0" value="0" min="0" max="255" class="input-width">
+	</div>
+	<div formGroupName="ipMask">
+		<label style="display: inline-block; width: 75px; margin-left: 0px;">IP Mask</label>
+		<input [readonly]="dhcpCheck" formControlName="ipMask1" type="number" placeholder="255" value="255" min="0" max="255" class="input-width">-
+		<input [readonly]="dhcpCheck" formControlName="ipMask2" type="number" placeholder="255" value="255" min="0" max="255" class="input-width">-
+		<input [readonly]="dhcpCheck" formControlName="ipMask3" type="number" placeholder="255" value="255" min="0" max="255" class="input-width">-
+		<input [readonly]="dhcpCheck" formControlName="ipMask4" type="number" placeholder="0" value="0" min="0" max="255" class="input-width">
+	</div>
+	<div formGroupName="gateway">
+		<label style="display: inline-block; width: 75px; margin-left: 0px;">Gateway</label>
+		<input [readonly]="dhcpCheck" formControlName="gateway1" type="number" placeholder="10" value="10" class="input-width">-
+		<input [readonly]="dhcpCheck" formControlName="gateway2" type="number" placeholder="0" value="0" class="input-width">-
+		<input [readonly]="dhcpCheck" formControlName="gateway3" type="number" placeholder="0" value="0" class="input-width">-
+		<input [readonly]="dhcpCheck" formControlName="gateway4" type="number" placeholder="0" value="0" class="input-width">
+	</div>
+	<div style="margin-top: 10px;" *ngIf="isAdmin">
+		<button type="submit">Apply Changes</button>
+	</div>
+</form>
+<h2>Power</h2>
+<div>
+	<button (click)="powerOff">Power Off</button>
+	<button (click)="reboot">Reboot</button>
+</div>
