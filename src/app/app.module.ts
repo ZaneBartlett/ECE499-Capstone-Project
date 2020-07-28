@@ -7,6 +7,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NgModule } from '@angular/core';
@@ -18,7 +19,7 @@ import { ConfigComponent, PasswordDialog } from './config/config.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { InputComponent } from './input/input.component';
 
-import { User } from './helpers';
+import { User, StatusInfo } from './helpers';
 
 @NgModule({
   declarations: [
@@ -37,8 +38,9 @@ import { User } from './helpers';
 		MatTabsModule,
 		ReactiveFormsModule,
 		MatDialogModule,
+		MatSlideToggleModule,
   ],
-  providers: [User],
+  providers: [User, StatusInfo],
   bootstrap: [AppComponent],
 	entryComponents: [PasswordDialog]
 })

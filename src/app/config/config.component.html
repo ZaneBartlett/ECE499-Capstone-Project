@@ -1,44 +1,69 @@
 <h2>User</h2>
 <div>
-	<button (click)="uploadPhotoId()">Upload ID</button>
-	<button (click)="changePassword()">Change Password</button>
+	<button (click)="uploadPhotoId()">Upload ID</button><br>
+	<button (click)="changePassword()">Change Password</button><br>
+	<h3>Payment Info</h3>
 	<div>
 		<form>
-			<input formControlName="ccNumber">
-			<input formControlName="ccExpiry">
-			<input formControlName="cvv">
-			<input formControlName="cardName">
+			<div>
+				<label style="display: inline-block; width: 150px; margin-left: 0px;">Credit Card Number:</label>
+				<input style="display: inline-block; width: 150px;" type="number" placeholder="1234567812345678" formControlName="ccNumber">
+			</div>
+			<div>
+				<label style="display: inline-block; width: 150px; margin-left: 0px;">Expiry:</label>
+				<input class="input-width" type="number" placeholder="01" min="1" max="12" formControlName="ccExpiryMonth">
+				<label style="display: inline-block; margin-left: 0px;">/</label>
+				<input class="input-width" type="number" placeholder="21" min="00" max="99" formControlName="ccExpiryYear">
+			</div>
+			<div>
+				<label style="display: inline-block; width: 150px; margin-left: 0px;">CVV:</label>
+				<input class="input-width" type="number" min="0" max="999" placeholder="000" formControlName="cvv">
+			</div>
+			<div>
+				<label style="display: inline-block; width: 150px; margin-left: 0px;">Cardholder Name:</label>
+				<input style="display: inline-block;" placeholder="John Doe" formControlName="cardName">
+			</div>
+			<button type="submit">Save Payment Info</button>
 		</form>
 	</div>
 </div>
-<h2>Network Info</h2>
-<form>
-	<mat-checkbox formControlName="enableDhcp" [(ngModel)]="dhcpCheck" style="margin-left: 10px;">Enable DHCP</mat-checkbox><br>
-	<div formGroupName="ipAddress">
-		<label style="display: inline-block; width: 75px; margin-left: 0px;">IP Address</label>
-		<input [readonly]="dhcpCheck" formControlName="ipAddress1" type="number" placeholder="10" value="10" min="0" max="255" class="input-width">-
-		<input [readonly]="dhcpCheck" formControlName="ipAddress2" type="number" placeholder="0" value="0" min="0" max="255" class="input-width">-
-		<input [readonly]="dhcpCheck" formControlName="ipAddress3" type="number" placeholder="0" value="0" min="0" max="255" class="input-width">-
-		<input [readonly]="dhcpCheck" formControlName="ipAddress4" type="number" placeholder="0" value="0" min="0" max="255" class="input-width">
-	</div>
-	<div formGroupName="ipMask">
-		<label style="display: inline-block; width: 75px; margin-left: 0px;">IP Mask</label>
-		<input [readonly]="dhcpCheck" formControlName="ipMask1" type="number" placeholder="255" value="255" min="0" max="255" class="input-width">-
-		<input [readonly]="dhcpCheck" formControlName="ipMask2" type="number" placeholder="255" value="255" min="0" max="255" class="input-width">-
-		<input [readonly]="dhcpCheck" formControlName="ipMask3" type="number" placeholder="255" value="255" min="0" max="255" class="input-width">-
-		<input [readonly]="dhcpCheck" formControlName="ipMask4" type="number" placeholder="0" value="0" min="0" max="255" class="input-width">
-	</div>
-	<div formGroupName="gateway">
-		<label style="display: inline-block; width: 75px; margin-left: 0px;">Gateway</label>
-		<input [readonly]="dhcpCheck" formControlName="gateway1" type="number" placeholder="10" value="10" class="input-width">-
-		<input [readonly]="dhcpCheck" formControlName="gateway2" type="number" placeholder="0" value="0" class="input-width">-
-		<input [readonly]="dhcpCheck" formControlName="gateway3" type="number" placeholder="0" value="0" class="input-width">-
-		<input [readonly]="dhcpCheck" formControlName="gateway4" type="number" placeholder="0" value="0" class="input-width">
-	</div>
-	<div style="margin-top: 10px;" *ngIf="isAdmin">
-		<button type="submit">Apply Changes</button>
-	</div>
-</form>
+<h2>Device Settings</h2>
+<div>
+	<h3>Network Info</h3>
+	<form>
+		<mat-checkbox formControlName="enableDhcp" [(ngModel)]="dhcpCheck" style="margin-left: 10px;">Enable DHCP</mat-checkbox><br>
+		<div formGroupName="ipAddress">
+			<label style="display: inline-block; width: 75px; margin-left: 0px;">IP Address</label>
+			<input [readonly]="dhcpCheck" formControlName="ipAddress1" type="number" placeholder="10" value="10" min="0" max="255" class="input-width">-
+			<input [readonly]="dhcpCheck" formControlName="ipAddress2" type="number" placeholder="0" value="0" min="0" max="255" class="input-width">-
+			<input [readonly]="dhcpCheck" formControlName="ipAddress3" type="number" placeholder="0" value="0" min="0" max="255" class="input-width">-
+			<input [readonly]="dhcpCheck" formControlName="ipAddress4" type="number" placeholder="0" value="0" min="0" max="255" class="input-width">
+		</div>
+		<div formGroupName="ipMask">
+			<label style="display: inline-block; width: 75px; margin-left: 0px;">IP Mask</label>
+			<input [readonly]="dhcpCheck" formControlName="ipMask1" type="number" placeholder="255" value="255" min="0" max="255" class="input-width">-
+			<input [readonly]="dhcpCheck" formControlName="ipMask2" type="number" placeholder="255" value="255" min="0" max="255" class="input-width">-
+			<input [readonly]="dhcpCheck" formControlName="ipMask3" type="number" placeholder="255" value="255" min="0" max="255" class="input-width">-
+			<input [readonly]="dhcpCheck" formControlName="ipMask4" type="number" placeholder="0" value="0" min="0" max="255" class="input-width">
+		</div>
+		<div formGroupName="gateway">
+			<label style="display: inline-block; width: 75px; margin-left: 0px;">Gateway</label>
+			<input [readonly]="dhcpCheck" formControlName="gateway1" type="number" placeholder="10" value="10" class="input-width">-
+			<input [readonly]="dhcpCheck" formControlName="gateway2" type="number" placeholder="0" value="0" class="input-width">-
+			<input [readonly]="dhcpCheck" formControlName="gateway3" type="number" placeholder="0" value="0" class="input-width">-
+			<input [readonly]="dhcpCheck" formControlName="gateway4" type="number" placeholder="0" value="0" class="input-width">
+		</div>
+		<div style="margin-top: 10px;" *ngIf="isAdmin">
+			<button type="submit">Apply Changes</button>
+		</div>
+		<h3>NFC</h3>
+		<div>
+			<label style="display: inline-block; margin-left: 0px;">Set NFC Mode:</label>
+			<label style="display: inline-block; margin-left: 10px; margin-right: 0px;">Use for identification</label>
+			<mat-slide-toggle style="margin-left: 0px;" formControlName="nfcState">Use for payment</mat-slide-toggle>
+		</div>
+	</form>
+</div>
 <h2>Power</h2>
 <div>
 	<button (click)="powerOff">Power Off</button>

@@ -1,1 +1,20 @@
-<p>dashboard works!</p>
+<div style="width: 25%; margin: 0 auto;">
+	<h2>Mixing Status</h2>
+	<span class="label">
+		<strong>Status:</strong>
+		<span class="dot" style="margin-right: 5px;" [ngStyle]="statusColor(1)"></span>
+		<strong>{{user}}</strong>
+	</span>
+	<h2>User Status</h2>
+	<span class="label">
+		<strong>Status:</strong>
+		<span class="dot" style="margin-right: 5px;" [ngStyle]="statusColor(2)"></span>
+		<strong>{{mixer}}</strong>
+	</span>
+	<h2>NFC Status</h2>
+	<span class="label">
+		<strong>Status:</strong>
+		<span class="dot" style="margin-right: 5px;" [ngStyle]="statusColor(3)"></span>
+		<strong>{{nfc}}</strong>
+	</span>
+</div>
