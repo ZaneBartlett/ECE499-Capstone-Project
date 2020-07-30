@@ -1,6 +1,10 @@
 <h2>User</h2>
-<div>
-	<button (click)="uploadPhotoId()">Upload ID</button><br>
+<div>	
+	<div>
+    <label for="file">Choose Photo to Upload</label>
+    <input type="file" accept="jpeg" id="file" (change)="handleFileInput($event.target.files)"><br>
+    <button (click)="uploadPhotoId()">Upload Photo ID</button>
+  </div><br>
 	<button (click)="changePassword()">Change Password</button><br>
 	<h3>Payment Info</h3>
 	<div>

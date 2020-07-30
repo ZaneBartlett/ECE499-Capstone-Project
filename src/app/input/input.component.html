@@ -1,41 +1,45 @@
 <div>
 	<h2 style="margin: 0 auto; width: 150px; display: inline-block;">Make your drink</h2>
 </div>
-<div>
-	<span>
-		<input style="display: inline-block" [readonly]="!isAdmin" placeholder="Bottle 1"/>
-		<input style="display: inline-block; width: 50px; margin-left: 10px;" type="number" placeholder="0"/>
-		<label style="display: inline-block">oz</label>
-	</span><br>
-	<span>
-		<input style="display: inline-block" [readonly]="!isAdmin" placeholder="Bottle 2"/>
-		<input style="display: inline-block; width: 50px; margin-left: 10px;" type="number" placeholder="0"/>
-		<label style="display: inline-block">oz</label>
-	</span><br>
-	<span>
-		<input style="display: inline-block" [readonly]="!isAdmin" placeholder="Bottle 3"/>
-		<input style="display: inline-block; width: 50px; margin-left: 10px;" type="number" placeholder="0"/>
-		<label style="display: inline-block">oz</label>
-	</span><br>
-	<span>
-		<input style="display: inline-block" [readonly]="!isAdmin" placeholder="Bottle 4"/>
-		<input style="display: inline-block; width: 50px; margin-left: 10px;" type="number" placeholder="0"/>
-		<label style="display: inline-block">oz</label>
-	</span><br>
-	<span>
-		<input style="display: inline-block" [readonly]="!isAdmin" placeholder="Bottle 5"/>
-		<input style="display: inline-block; width: 50px; margin-left: 10px;" type="number" placeholder="0"/>
-		<label style="display: inline-block">oz</label>
-	</span><br>
-	<span>
-		<input style="display: inline-block" [readonly]="!isAdmin" placeholder="Bottle 6"/>
-		<input style="display: inline-block; width: 50px; margin-left: 10px;" type="number" placeholder="0"/>
-		<label style="display: inline-block">oz</label>
-	</span>
-<div>
-	<mat-checkbox style="display: inline-block; width: 100px; margin: 0px;">Mix your drink</mat-checkbox>
-</div>
-<div>
-	<button style="float: left; display: inline-block; width: 100px; margin: 0px;">Start</button>
-	<button style="float: left; display: inline-block; width: 100px; margin: 0px;">Pay Now</button>
-</div>
+<form [formGroup]="inputForm" (ngSubmit)="onSubmit()">
+	<div>
+		<span>
+			<input formControlName="drink0" style="display: inline-block" [readonly]="!isAdmin" placeholder="Bottle 1"/>
+			<input formControlName="pourAmt0" style="display: inline-block; width: 50px; margin-left: 10px;" type="number" placeholder="0"/>
+			<label style="display: inline-block">oz</label>
+		</span><br>
+		<span>
+			<input formControlName="drink1" style="display: inline-block" [readonly]="!isAdmin" placeholder="Bottle 2"/>
+			<input formControlName="pourAmt1" style="display: inline-block; width: 50px; margin-left: 10px;" type="number" placeholder="0"/>
+			<label style="display: inline-block">oz</label>
+		</span><br>
+		<span>
+			<input formControlName="drink2" style="display: inline-block" [readonly]="!isAdmin" placeholder="Bottle 3"/>
+			<input formControlName="pourAmt2" style="display: inline-block; width: 50px; margin-left: 10px;" type="number" placeholder="0"/>
+			<label style="display: inline-block">oz</label>
+		</span><br>
+		<span>
+			<input formControlName="drink3" style="display: inline-block" [readonly]="!isAdmin" placeholder="Bottle 4"/>
+			<input formControlName="pourAmt3" style="display: inline-block; width: 50px; margin-left: 10px;" type="number" placeholder="0"/>
+			<label style="display: inline-block">oz</label>
+		</span><br>
+		<span>
+			<input formControlName="drink4" style="display: inline-block" [readonly]="!isAdmin" placeholder="Bottle 5"/>
+			<input formControlName="pourAmt4" style="display: inline-block; width: 50px; margin-left: 10px;" type="number" placeholder="0"/>
+			<label style="display: inline-block">oz</label>
+		</span><br>
+		<span>
+			<input formControlName="drink5" style="display: inline-block" [readonly]="!isAdmin" placeholder="Bottle 6"/>
+			<input formControlName="pourAmt5" style="display: inline-block; width: 50px; margin-left: 10px;" type="number" placeholder="0"/>
+			<label style="display: inline-block">oz</label>
+		</span>
+	</div>
+	<div>
+		<mat-checkbox formControlName="mix" style="display: inline-block; width: 100px; margin: 0px;">Mix your drink</mat-checkbox>
+	</div>
+	<div>
+		<button type="submit" style="float: left; display: inline-block; width: 100px; margin: 0px;">Start</button>
+		<button type="submit" style="float: left; display: inline-block; width: 100px; margin: 0px;">Pay Now</button>
+		<button type="submit" *ngIf="isAdmin" style="float: left; display: inline-block; width: 100px; margin: 0px;">Update Options</button>
+	</div>
+</form>

@@ -55,7 +55,7 @@ export class ConfigComponent implements OnInit {
 		});
 
 		this.paymentForm = this.formBuilder.group({
-			username: [this.httpService.currentUserValue.username;],
+			username: [this.httpService.currentUserValue.username],
 			ccNumber: [0, Validators.required],
 			ccExpiryMonth: [0, Validators.required],
 			ccExpiryYear: [0, Validators.required],
