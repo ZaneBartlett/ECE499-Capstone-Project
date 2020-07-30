@@ -38,9 +38,9 @@ export class DashboardComponent implements OnInit {
     this.userStatus = new StatusInfo();
     this.userStatus.code = 0;
     this.mixerStatus = new StatusInfo();
-    this.mixerStatus.code = 4;
+    this.mixerStatus.code = 0;
     this.nfcStatus = new StatusInfo();
-    this.nfcStatus.code = 4;
+    this.nfcStatus.code = 0;
   }
 
   /*
@@ -48,19 +48,23 @@ export class DashboardComponent implements OnInit {
   */
 
   getDashboard(): void {
-    this.http.httpRequestNoForm('ntpOutput', 'GetStatus')
-      .subscribe(sources => {
+    this.http.httpRequestNoForm('mixerControl', 'GetStatus')
+      .subscribe(
+				response => {
 					this.httpErrorCount = 0;
-          if(sources != null) {
-            this.mixerStatus.code = sources[0].state;          }
-        },
-        err => {
-          console.error('Failed to get ntp sources. Error was ', err.message);
+          if(response != null) {
+            this.mixerStatus.code = response.mixerStatus;
+						this.userStatus.code = response.mixerStatus;
+						this.nfcStatus.code = response.nfcStatus;
+					}
+				},
+				err => {
+	        console.error('Failed to get ntp sources. Error was ', err.message);
 					this.httpErrorCount += 1;
 					if(this.httpErrorCount > 100){
-	          clearInterval(this.timer);
+				    clearInterval(this.timer);
 					}
-        }
+				}
       )
   }
 
@@ -78,62 +82,47 @@ export class DashboardComponent implements OnInit {
       case 1: { //for user status
 
 				if (this.userStatus.code == 0) {
-				  this.userStatus.color = {'background-color' : 'red'};
-				  this.userStatus.text = "No Signal";
+				  this.userStatus.color = {'background-color' : 'green'};
+				  this.userStatus.text = "Good to go";
 				} else if(this.userStatus.code == 1) {
 				  this.userStatus.color = {'background-color' : 'yellow'};
-				  this.userStatus.text = "Detected";
+				  this.userStatus.text = "Drink being made";
 				} else if(this.userStatus.code == 2) {
-				  this.userStatus.color = {'background-color' : 'green'};
-				  this.userStatus.text = "Input Locked";
+				  this.userStatus.color = {'background-color' : 'red'};
+				  this.userStatus.text = "Error occured while mixing";
+				} else if(this.userStatus.code == 3) {
+					this.userStatus.color = {'background-color' : 'yellow'};
+          this.userStatus.text = "Waiting on user NFC tap";
 				}
 
 				return this.userStatus.color;
       }
       case 2: { //for mixing status
 
-        if (this.mixerStatus.code == 1) {
+        if (this.mixerStatus.code == 0) {
           this.mixerStatus.color = {'background-color' : 'green'};
-          this.mixerStatus.text = "Current synced";
+          this.mixerStatus.text = "Ready to order";
+        } else if(this.mixerStatus.code == 1) {
+          this.mixerStatus.color = {'background-color' : 'yellow'};
+          this.mixerStatus.text = "Drink being made";
         } else if(this.mixerStatus.code == 2) {
-          this.mixerStatus.color = {'background-color' : 'yellow'};
-          this.mixerStatus.text = "Combined";
-        } else if(this.mixerStatus.code == 3) {
-          this.mixerStatus.color = {'background-color' : 'yellow'};
-          this.mixerStatus.text = "Not combined";
-        } else if(this.mixerStatus.code == 4) {
           this.mixerStatus.color = {'background-color' : 'red'};
-          this.mixerStatus.text = "Unreachable";
-        } else if(this.mixerStatus.code == 5) {
-          this.mixerStatus.color = {'background-color' : 'red'};
-          this.mixerStatus.text = "Time error";
-        } else if(this.mixerStatus.code == 6) {
-          this.mixerStatus.color = {'background-color' : 'red'};
-          this.mixerStatus.text = "Time too variable";
+          this.mixerStatus.text = "Error occured while mixing";
         }
 
         return this.mixerStatus.color;
       }
       case 3: { //for nfc status
 
-        if (this.nfcStatus.code == 1) {
+        if (this.nfcStatus.code == 0) {
           this.nfcStatus.color = {'background-color' : 'green'};
-          this.nfcStatus.text = "Current synced";
+          this.nfcStatus.text = "No process occuring";
+        } else if(this.nfcStatus.code == 1) {
+          this.nfcStatus.color = {'background-color' : 'yellow'};
+          this.nfcStatus.text = "Waiting for tap";
         } else if(this.nfcStatus.code == 2) {
-          this.nfcStatus.color = {'background-color' : 'yellow'};
-          this.nfcStatus.text = "Combined";
-        } else if(this.nfcStatus.code == 3) {
-          this.nfcStatus.color = {'background-color' : 'yellow'};
-          this.nfcStatus.text = "Not combined";
-        } else if(this.nfcStatus.code == 4) {
           this.nfcStatus.color = {'background-color' : 'red'};
-          this.nfcStatus.text = "Unreachable";
-        } else if(this.nfcStatus.code == 5) {
-          this.nfcStatus.color = {'background-color' : 'red'};
-          this.nfcStatus.text = "Time error";
-        } else if(this.nfcStatus.code == 6) {
-          this.nfcStatus.color = {'background-color' : 'red'};
-          this.nfcStatus.text = "Time too variable";
+          this.nfcStatus.text = "NFC unavailable";
         }
 
         return this.nfcStatus.color;

@@ -4,7 +4,7 @@
 	<button (click)="changePassword()">Change Password</button><br>
 	<h3>Payment Info</h3>
 	<div>
-		<form>
+		<form [formGroup]="paymentForm" (ngSubmit)="paymentSubmit()">
 			<div>
 				<label style="display: inline-block; width: 150px; margin-left: 0px;">Credit Card Number:</label>
 				<input style="display: inline-block; width: 150px;" type="number" placeholder="1234567812345678" formControlName="ccNumber">
@@ -30,7 +30,7 @@
 <h2>Device Settings</h2>
 <div>
 	<h3>Network Info</h3>
-	<form>
+	<form [formGroup]="networkForm" (ngSubmit)="networkSubmit()">
 		<mat-checkbox formControlName="enableDhcp" [(ngModel)]="dhcpCheck" style="margin-left: 10px;">Enable DHCP</mat-checkbox><br>
 		<div formGroupName="ipAddress">
 			<label style="display: inline-block; width: 75px; margin-left: 0px;">IP Address</label>

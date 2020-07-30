@@ -20,6 +20,7 @@ export class ConfigComponent implements OnInit {
   isAdmin = false;
   submitted = false;
 	networkForm: FormGroup;
+	paymentForm: FormGroup;
 	dhcpCheck = true;
 
   constructor(
@@ -29,10 +30,10 @@ export class ConfigComponent implements OnInit {
   ) {	}
 
 
-  ngOnInit() {
- 
+  ngOnInit() { 
 		this.networkForm = this.formBuilder.group({
 			enableDhcp: [false],
+			nfcMode: [false],
       ipAddress: this.formBuilder.group({
 				ipAddress1: [10, Validators.required],
 				ipAddress2: [0, Validators.required],
@@ -53,8 +54,18 @@ export class ConfigComponent implements OnInit {
       })
 		});
 
+		this.paymentForm = this.formBuilder.group({
+			username: [this.httpService.currentUserValue.username;],
+			ccNumber: [0, Validators.required],
+			ccExpiryMonth: [0, Validators.required],
+			ccExpiryYear: [0, Validators.required],
+			cvv: [0, Validators.required],
+			cardName: ["", Validators.required]
+		})
+
 		this.isAdmin = this.httpService.currentUserValue.isAdmin;
 		this.getNetwork();
+		this.getPayment();
   }
 
 	getNetwork(): void {
@@ -120,6 +131,40 @@ export class ConfigComponent implements OnInit {
 			);
 	}
 
+	getPayment() {
+		this.httpService.httpRequest(this.paymentForm, 'userAuth', 'GetPaymentInfo')
+      .subscribe(
+        response => {
+          this.paymentForm.patchValue({
+						ccNumber: response.ccNumber,
+						ccExpiryMonth: response.ccExpiryMonth,
+						ccExpiryYear: response.ccExpiryYear,
+						cvv: response.cvv,
+						cardName: response.cardName
+          });
+        },
+        err => { console.error(err); },
+        () => {}
+      );
+	}
+
+	setPayment() {
+		this.httpService.httpRequest(this.paymentForm, 'userAuth', 'SetPaymentInfo')
+      .subscribe(
+        response => {
+          this.paymentForm.patchValue({
+						ccNumber: response.ccNumber,
+						ccExpiryMonth: response.ccExpiryMonth,
+						ccExpiryYear: response.ccExpiryYear,
+						cvv: response.cvv,
+						cardName: response.cardName
+          });
+        },
+        err => { console.error(err); },
+        () => {}
+      );
+	}
+
   reboot() {
     this.httpService.httpRequestNoForm('device', 'PowerCycle')
         .subscribe(
@@ -170,6 +215,18 @@ export class ConfigComponent implements OnInit {
 		}
 
 		this.setNetwork();
+
+		this.submitted = false;
+	}
+
+	paymentSubmit() {
+		this.submitted = true;
+
+		if (this.paymentForm.invalid) {
+			return;
+		}
+
+		this.setPayment();
 
 		this.submitted = false;
 	}
